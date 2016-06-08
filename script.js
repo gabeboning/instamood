@@ -61,11 +61,13 @@ function analyzeSentiments(data) {
 }
 
 function addSentiment(type, score, picNum) {
-  console.log(allSentimentScores, score);
+  // Find the post the corresponds to this sentiment
   var picDiv = $("#post-" + picNum);
+  // Create a sentiment div
   var sentimentDiv = $("<div></div>");
   var sentimentI = $("<i></i>");
   sentimentI.addClass("fa");
+  // Add the appropriate smiley using FontAwesome
   var faClass = "fa-meh-o";
   if (type === "positive") {
     sentimentDiv.addClass("positive");
@@ -83,15 +85,18 @@ function addSentiment(type, score, picNum) {
   updateTotalSentiment(score);
 }
 
-var allSentimentScores = [];
+var allSentimentScores = []; // Aggregator for all sentiments so far.
 function updateTotalSentiment(score) {
   allSentimentScores.push(score);
   console.log(allSentimentScores, score);
+  // Calculate the average sentiment.
   var sum = 0;
   for (var i=0; i<allSentimentScores.length; i++) {
     sum += allSentimentScores[i];
   }
   var avg = sum / allSentimentScores.length;
+
+  // Add nice text and colors.
   var text = "Neutral"
   var textClass = "";
   if (avg > 0) {
