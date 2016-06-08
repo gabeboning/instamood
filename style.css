@@ -20,3 +20,11 @@
 .post .caption {
   color: #555;
 }
+
+.positive {
+  color: green;
+}
+
+.negative {
+  color: red;
+}
