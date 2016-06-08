@@ -1,9 +1,15 @@
 $(document).ready(function() {
-  var token = window.location.hash;
-  if (!token) {
+  var token;
+  if(localStorage.getToken("igToken")) {
+    token = localStorage.getToken("igToken");
+  } else if(window.location.hash) {
+    token = window.location.hash.replace("#", "?");
+    //token = token.replace("#", "?"); // Ready for query param.
+  } else {
     window.location.replace("./login.html");
   }
-  token = token.replace("#", "?"); // Ready for query param.
+  
+  localStorage.setItem("igToken", token);
   getInstaPics(token);
 });
 
