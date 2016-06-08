@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var token;
-  if(localStorage.getToken("igToken")) {
-    token = localStorage.getToken("igToken");
+  if(localStorage.getItem("igToken")) {
+    token = localStorage.getItem("igToken");
   } else if(window.location.hash) {
     token = window.location.hash.replace("#", "?");
     //token = token.replace("#", "?"); // Ready for query param.
