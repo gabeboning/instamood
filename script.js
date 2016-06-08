@@ -1,22 +1,19 @@
-$(document).ready(function() {
-  var token;
-  if(localStorage.getItem("igToken")) {
-    token = localStorage.getItem("igToken");
-  } else if(window.location.hash) {
-    token = window.location.hash.replace("#", "?");
-    //token = token.replace("#", "?"); // Ready for query param.
-  } else {
-    window.location.replace("./login.html");
-  }
+// first things first: we need a token
+if(window.location.hash) {
+  window.token = window.location.hash.replace("#", ""); // convert for use as param
+  localStorage.setItem("igToken", window.token); // store for future loads
+}
+else if(localStorage.getItem("igToken")) {
+  window.token = localStorage.getItem("igToken"); // load from localstorage if exists
+} else {
+  window.location.replace("./login.html");
+}
   
-  localStorage.setItem("igToken", token);
-  getInstaPics(token);
-});
+var INSTA_API_BASE_URL = "https://api.instagram.com/v1";
 
-function getInstaPics(token) {
-  var INSTA_API_BASE_URL = "https://api.instagram.com/v1";
+function getInstaPics() {
   var path = "/users/self/media/recent";
-  var mediaUrl = INSTA_API_BASE_URL + path + token;
+  var mediaUrl = INSTA_API_BASE_URL + path + "?" + window.token;
   $.ajax({
     method: "GET",
     url: mediaUrl,
@@ -24,6 +21,32 @@ function getInstaPics(token) {
     success: function(response) {
       showPictures(response.data);
       analyzeSentiments(response.data);
+    }
+  });
+}
+
+function getInstaLocationsByLatLng(lat, lng) {
+  var path = "/users/self/media/recent";
+  var mediaUrl = INSTA_API_BASE_URL + path + "?" + window.token;
+  $.ajax({
+    method: "GET",
+    url: mediaUrl,
+    dataType: "jsonp",
+    success: function(response) {
+      showLocations(response.data);
+    }
+  });
+}
+
+function getInstaPicsByLocation(lat, lng) {
+  var path = "/users/self/media/recent";
+  var mediaUrl = INSTA_API_BASE_URL + path + "?" + window.token;
+  $.ajax({
+    method: "GET",
+    url: mediaUrl,
+    dataType: "jsonp",
+    success: function(response) {
+      showPictures(response.data);
     }
   });
 }
