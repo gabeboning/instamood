@@ -1,5 +1,7 @@
 $(document).ready(function() {
   var token = window.location.hash;
+  // Hard coding so it will work in the stage1 directory.
+  var token = "#access_token=35772159.178d9be.551bc4977f874decb00c600b12b68e46";
   if (!token) {
     window.location.replace("./login.html");
   }
