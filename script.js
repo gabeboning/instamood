@@ -25,31 +25,7 @@ function getInstaPics() {
   });
 }
 
-function getInstaLocationsByLatLng(lat, lng) {
-  var path = "/users/self/media/recent";
-  var mediaUrl = INSTA_API_BASE_URL + path + "?" + window.token;
-  $.ajax({
-    method: "GET",
-    url: mediaUrl,
-    dataType: "jsonp",
-    success: function(response) {
-      showLocations(response.data);
-    }
-  });
-}
 
-function getInstaPicsByLocation(lat, lng) {
-  var path = "/users/self/media/recent";
-  var mediaUrl = INSTA_API_BASE_URL + path + "?" + window.token;
-  $.ajax({
-    method: "GET",
-    url: mediaUrl,
-    dataType: "jsonp",
-    success: function(response) {
-      showPictures(response.data);
-    }
-  });
-}
 
 function showPictures(data) {
   $("#list").html("");

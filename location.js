@@ -8,6 +8,7 @@ navigator.geolocation.getCurrentPosition(function(position) {
   getInstaLocationsByLatLng(position.coords.latitude, position.coords.longitude);
 });
 
+// when location selected, show pictures
 $("#locations ol").on("click", "a", function(e) {
   e.preventDefault();
   
